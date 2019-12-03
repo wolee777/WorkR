@@ -208,3 +208,30 @@ head( mpg, 5 )
 mpg %>% 
   select( model, fl, price_fl ) %>% 
   head( 5 )
+
+
+#
+# 기술 통계량 함수 : summary(), psych package의 describe()
+# 
+# describe() - min : 최소값, quantile(,0.25) : 1사분위수, median : 중앙값, mean : 평균
+#              quantile(,0.75) : 3사분위수, max : 최대값, vars : 변수개수, n : 관측치
+#              sd : 표준편차, range : 범위, kurtosi : 첨도, skew : 왜도
+summary( mtcars )
+
+install.packages( "psych" )
+library( psych )
+describe( mtcars )
+
+#
+# 빈도 분석 : descr package의 freq()
+#
+install.packages( "descr" )
+library( descr )
+
+df <- data.frame( id = c( 1, 2, 4 ),
+                  gender = c( '남', '여', '남' ) )
+
+table( df$gender )
+
+freq( df$gender )
+freq( df$gender, plot = F ) 
