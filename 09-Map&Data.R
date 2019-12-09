@@ -104,3 +104,66 @@ gmap+geom_point( data = df,                        # 풍속을 원의 크기로 
                  alpha = 0.5, 
                  col = "blue" ) +
   scale_size_continuous( range = c( 1, 14 ) )      # 원의 크기 조절
+
+
+#
+#
+#
+install.packages( "ggiraphExtra" )
+library( ggiraphExtra )
+
+str( USArrests )
+head( USArrests )
+
+library( tibble )
+crime <- rownames_to_column( USArrests, var = "state" )
+crime$state <- tolower( crime$state )
+str( crime )
+
+library( ggplot2 )
+install.packages( "mapproj" )
+library( mapproj )
+
+states_map <- map_data( "state" )
+str( states_map )
+
+ggChoropleth( data = crime, # 지도에 표현할 데이터
+              aes( fill = Murder, # 색으로 표현 할 변수
+                   map_id = state ), # 지역 기준 변수
+              map = states_map ) # 지도 데이터
+
+ggChoropleth( data = crime, # 지도에 표현할 데이터
+              aes( fill = Murder, # 색으로 표현 할 변수
+                   map_id = state ), # 지역 기준 변수
+              map = states_map, # 지도 데이터
+              interactive = T ) 
+
+
+install.packages( "stringi" )
+install.packages( "devtools" )
+devtools::install_github( "cardiomoon/kormaps2014" )
+
+library( kormaps2014 )
+
+str( changeCode( korpop1 ) )
+
+library( dplyr )
+#korpop1 <- rename( korpop1 , pop = 총인구_명, name = 행정구역별_읍면동 )
+korpop1
+
+str( changeCode( kormap1 ) )
+
+ggChoropleth( data = korpop1, # 지도에 표현할 데이터
+              aes( fill = pop, # 색으로 표현 할 변수
+                   map_id = code, # 지역 기준 변수
+                   tooltip = name ), # 지도위 표시될 지역명
+              map = kormap1, # 지도 데이터
+              interactive = T ) 
+
+str( changeCode( tbc ) )
+ggChoropleth( data = tbc, # 지도에 표현할 데이터
+              aes( fill = NewPts, # 색으로 표현 할 변수
+                   map_id = code, # 지역 기준 변수
+                   tooltip = name ), # 지도위 표시될 지역명
+              map = kormap1, # 지도 데이터
+              interactive = T ) 
