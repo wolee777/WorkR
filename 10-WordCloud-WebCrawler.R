@@ -55,7 +55,7 @@ library(rvest)
 library(dplyr)
 
 ## 변수 입력하기
-QUERY <- "취업" # 검색키워드
+QUERY <- "제주" # 검색키워드
 DATE  <- as.Date( as.character( 20191201 ), format = "%Y%m%d" ) # 검색시작날짜 & 검색종료날짜
 DATE  <- format( DATE, "%Y.%m.%d" )
 PAGE  <- 1
@@ -67,7 +67,7 @@ naver_url_4 <- "&start="
 
 ## 날짜 리스트 만들기
 DATE_START <- as.Date( as.character( 20191201 ), format = "%Y%m%d" ) # 시작일자
-DATE_END   <- as.Date( as.character( 20191210 ), format = "%Y%m%d" ) # 종료일자
+DATE_END   <- as.Date( as.character( 20191201 ), format = "%Y%m%d" ) # 종료일자
 DATE <- DATE_START:DATE_END
 DATE <- as.Date( DATE, origin = "1970-01-01" )
 
