@@ -119,6 +119,7 @@ model
 abline( model )                     # 회귀선을 산점도에 표시
 
 coef( model )                       # 매개변수( 계수 ) - W, b의 값
+cars
 fitted( model )                     # 훈련 집합에 있는 샘플에 대한 예측값
 residuals( model )                  # 잔차를 알려줌
                     # 모델에 대한 오차 분석시 평균 제곱 오차(MES)법 사용
