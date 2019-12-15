@@ -266,6 +266,8 @@ anova( m.1, m.2, m.3, m.4 )
 #
 # cars 데이터셋을 모델링한 결과 speed 계수의 p-값이 1.49e-12로 0.05보다 매우 작은 값이다.
 # 통계적으로 유의미한 모델링이 되었음을 확인할 수 있다.
+# 다만 (Intercept)라고 표시된 절편의 p-값이 0.0123으로 높은편이다. 이 현상은 점들이 상하로
+#      퍼져 있어 절편에 대한 오차가 크기 때문에 나타난다.
 str( cars )
 head( cars )
 car_model = lm( dist~speed, data = cars )
@@ -276,13 +278,15 @@ summary( car_model )
 
 # women 데이터셋을 모델링한 결과 height 계수의 p-값이 1.49e-12로 0.05보다 매우 작은 값이다.
 # 통계적으로 유의미한 모델링이 되었음을 확인할 수 있다.
+# (Intercept)라고 표시된 절편의 p-값이 1.71e-09로 매우 작다.
+# women 데이터 모델은 cars 데이터 모델보다 더 정확하게 예측할 성이라고 이해하면 된다.
 str( women )
 head( women )
 women_model = lm( weight~height, data = women )
 coef( women_model )
 plot( women )
 abline( women_model, col = 'red' )
-summary( car_model )
+summary( women_model )
 
 
 #
