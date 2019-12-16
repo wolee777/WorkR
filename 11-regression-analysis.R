@@ -135,18 +135,17 @@ summary( model )                    # 모델의 상세내용
 #  Min      1Q  Median      3Q     Max 
 #-29.069  -9.525  -2.272   9.215  43.201 
 #
-#Coefficients:                                          lm()이 사용하는 귀무가설 독립변수x와 종속변수y
-#                                                       가 아무 관련이 없다, 두 변수는 관련이 있다는
-#                                                       대립가설이 받아들여진다.
-#         Estimate Std.  Error   t value Pr(>|t|)    -> 모델의 계수, 유의수준을 0.05로 설정하였을 겨우
-#(Intercept) -17.5791     6.7584  -2.601   0.0123 *           -> W   p-값을 통해 대립/귀무 가설에 대한
-#  speed         3.9324     0.4155   9.464 1.49e-12 ***       -> b   판단
+#Coefficients:                                                       lm()이 사용하는 귀무가설은 '독립변수x와 종속변수y가 아무 관련 없다'이다
+#                                                                    바꾸어 말하면 두 변수는 관련이 있다는 대립가설이 받아들여진다.
+#         Estimate Std.  Error   t value Pr(>|t|)    -> 모델의 계수, 유의수준을 0.05로 설정하였을 경우 p-값을 통해 대립/귀무 가설에 대한 판단
+#(Intercept) -17.5791     6.7584  -2.601   0.0123 *           -> W   
+#  speed         3.9324     0.4155   9.464 1.49e-12 ***       -> b   p-value가 p-value의 유의수준보다 작으므로 귀무가설을 기각된다.
 #  ---
 #  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #
 #Residual standard error: 15.38 on 48 degrees of freedom
 #Multiple R-squared:  0.6511,	Adjusted R-squared:  0.6438 
-#F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12
+#F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12        
 #
 #
 # t-검정과 분산 분석
@@ -369,6 +368,7 @@ summary( mod1 )
 #                                   p-value(유의수준) 값은 구한 회귀모델이 의미있는 모델인지, 혹은
 #                                     신뢰할 수 있는 모델인지를 나타내은 것, 
 #                                     일반적으로 p-value < 0.05이면 이 모델의 신뢰수준이 95%이상임을 의미
+#                                     0.05보다 작으므로 귀무가설은 기각된다.
 #
 # 다중선형 회귀모델에서 변수 선택
 #
