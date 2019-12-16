@@ -542,7 +542,7 @@ unknown              # 예측 대상 데이터
 
 pred <- predict( mod.iris, unknown )  # 품종 예측
 pred                                  # 예측 결과
-round( pred, 0 )                      # 예측 결과 출력( 소수 첫째 자리에서 반올림 )
+round( pred, 0 )                      # 예측 결과 출력( 소수 첫째 자리에서 반올림 ), one-hot encoding
 
 # 실제 품종명 알아보기
 pred <- round( pred, 0 )
@@ -562,7 +562,7 @@ test <- iris[ , 1:4 ]                 # 예측 대상 데이터 준비
 # 예측대상이 되는 데이터를 테스트 데이터( test data )
 #
 pred <- predict( mod.iris, test )     # 모델을 이용한 예측
-pred <- round( pred, 0 )
+pred <- round( pred, 0 )              # one-hot encoding
 pred                                  # 예측 결과
 
 answer <- as.integer( iris$Species )  # 실제 품종 정보
