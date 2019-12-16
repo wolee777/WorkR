@@ -316,13 +316,26 @@ head( Prestige )
 #   prestige : 직군에 대한 평판도( 독립변수 )
 
 newdata <- Prestige[ , c( 1:4 ) ]             # 회귀식 작성을 위한 데이터 준비
-newdata
+head( newdata )
+min( newdata$prestige )
+max( newdata$prestige )
 
 plot( newdata, pch = 16, col = 'blue',        # 산점도를 통해 변수 간 관계 확인 
       main = 'Matrix Scatterplot' )
 
 mod1 <- lm( income~education + prestige + women, data = newdata ) # 회귀식 도출
 #   ~앞에 있는 것이 종속변수, ~뒤가 독립변수, 독립변수가 여러 개이면 + 로 연결
+
+mod1
+coef( mod1 )
+fitted( mod1 )      # 훈련 집합에 대한 예측값
+residuals( mod1 )   # 잔차
+deviance( mod1 )    # 잔차 제곱합
+
+deviance( mod1 ) / length( newdata$education ) # 자차 제곱합을 평균 제곱 오차로 변환
+deviance( mod1 ) / length( newdata$income )
+deviance( mod1 ) / length( newdata$women )
+deviance( mod1 ) / length( newdata$prestige )
 
 summary( mod1 )
 # 
@@ -361,7 +374,7 @@ summary( mod1 )
 #
 # 다중선형 회귀모델에서 변수 선택
 #
-# 다중선형 회귀모델에서는 종속변수를 설명하는 데 도움이 되는 독립변수가 도수 존재한다.
+# 다중선형 회귀모델에서는 종속변수를 설명하는 데 도움이 되는 독립변수가 다수 존재한다.
 # 그런데 모든 독립변수가 종속변수를 설명하는 데 동일하게 기여하는 것은 아니다.
 # 어떤 변수는 기여도가 높고, 어떤 변수는 기여도가 낮다.
 #
@@ -378,14 +391,16 @@ head( newdata2 )
 mod2 <- lm( income~education + prestige + women + census, data = newdata2 )
 #           income~. 과 같이 간단히 표시할 수 있다. 
 #             여기서 .의 의미는 income을 제외한 나머지 모두 독립변수라는 의미
+
 mod2
+coef( mod2 )
 
 mod3 <- stepAIC( mod2 )     # 모델에 기여하는 변수 선택
 # stepAIC()는 mod2에서 불필요한 변수를 제거해 나가는 방식으로 작업
 # 
 #
 #Start:  AIC=1607.93
-#income ~ education + prestige + women + census   -> step 진행사 사용한 변수
+#income ~ education + prestige + women + census   -> step 진행시 사용한 변수
 #
 #Df Sum of Sq       RSS    AIC
 #- census     1    639658 649654265 1606.0
@@ -395,7 +410,7 @@ mod3 <- stepAIC( mod2 )     # 모델에 기여하는 변수 선택
 #- women      1 212639294 861653901 1634.8
 #
 #Step:  AIC=1606.03
-#income ~ education + prestige + women            -> step 진행사 사용한 변수
+#income ~ education + prestige + women            -> step 진행시 사용한 변수
 #
 #Df Sum of Sq       RSS    AIC
 #- education  1   5912400 655566665 1605.0
@@ -404,7 +419,7 @@ mod3 <- stepAIC( mod2 )     # 모델에 기여하는 변수 선택
 #- women      1 234562232 884216497 1635.5
 #
 #Step:  AIC=1604.96
-#income ~ prestige + women                        -> step 진행사 사용한 변수
+#income ~ prestige + women                        -> step 진행시 사용한 변수
 #
 #Df Sum of Sq        RSS    AIC
 #<none>                   655566665 1605.0
@@ -413,7 +428,8 @@ mod3 <- stepAIC( mod2 )     # 모델에 기여하는 변수 선택
 #
 # 위 과정에서 제거된 변수가 education과 census이고 남은 변수가 prestige와 women이다.
 
-mod3          # 결과 확인 
+mod3
+coef( mod3 )          # 결과 확인 
 #Call:
 #  lm(formula = income ~ prestige + women, data = newdata2)
 #
@@ -449,6 +465,8 @@ summary( mod3 )       # 회귀모델 상세 내용 확인
 #F-statistic: 87.98 on 2 and 99 DF,  p-value: < 2.2e-16
 #
 #
+
+
 # 로지스틱 회귀분석( Logistic regression )
 #           회귀모델에서 종속변수의 값의 형태가 연속형 숫자가 아닌 범주형 값인 경우를 다루는 통계적방법
 #
@@ -469,6 +487,8 @@ iris.new$Species <- as.integer( iris.new$Species )    # 범주형 자료를 정�
 head( iris.new )
 
 mod.iris <- glm( Species~., data = iris.new )         # 로지스틱 회귀모델 도출
+mod.iris
+coef( mod.iris )
 summary( mod.iris )                                   # 회귀모델의 상세 내용 확인 
 #Call:
 #  glm(formula = Species ~ ., data = iris.new)
