@@ -317,8 +317,6 @@ head( Prestige )
 
 newdata <- Prestige[ , c( 1:4 ) ]             # 회귀식 작성을 위한 데이터 준비
 head( newdata )
-min( newdata$prestige )
-max( newdata$prestige )
 
 plot( newdata, pch = 16, col = 'blue',        # 산점도를 통해 변수 간 관계 확인 
       main = 'Matrix Scatterplot' )
