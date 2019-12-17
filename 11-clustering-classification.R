@@ -145,6 +145,7 @@ ds.ts <- iris[ -tr.idx, 1:4 ]             # 테스트용 데이터셋
 cl.tr <- factor( iris[ tr.idx, 5 ] )      # 훈련용 데이터셋의 그룹(품종) 정보
 cl.ts <- factor( iris[ -tr.idx, 5 ] )     # 테스트용 데이터셋의 그룹(품종) 정보
 
+#            훈련  테스트 훈련그룹 이웃개수
 pred <- knn( ds.tr, ds.ts, cl.tr, k = 3, prob = TRUE )
 #                                        prob : 예측된 그룹에 대한 지지 확률을 표시할지 여부 결정
 #                                               k = 3인 경우 최근접 이웃이 class A가 2개, class B가 1개라면
