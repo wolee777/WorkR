@@ -36,7 +36,7 @@
 # 머신러닝에서는 지도학습(supervised learning)에 속한다.
 #
 # 군집화 알고리즘 : k-평균( k-means ) 알고리즘
-# 분류 알고리즘 : k-최근접이웃( k-mearest neighbor ) 알고리즘
+# 분류 알고리즘 : k-최근접이웃( k-nearest neighbor ) 알고리즘
 #
 #
 # k-평균( k-means ) 군집화 알고리즘
@@ -55,17 +55,45 @@
 # 6단계 : 더 이상 변동되지 않으면 군집의 중심점에 도달한 것으로 반복을 중단한다.
 # 7단계 : 마지막으로 해당 점과 가까운점들을 해당 점의 군집으로 표시하고 군집화를 종료한다.
 #
+# k-평균 군집화에서는 점과 점 사이의 거리를 계산하는 과정이 있다. 점과 점 사이의 거리를
+# 계산하는 다양한 방법이 있지만, 대개 유클리디안 거리( Euclidean distance )가 많이 사용된다.
+# 
 mydata <- iris[ , 1:4 ]
 
 fit <- kmeans( x = mydata, centers = 3 )   # 군집화
 fit
+#
+#K-means clustering with 3 clusters of sizes 33, 21, 96   -> 3개의 군집에 속한 데이터들의 개수
+#
+#Cluster means:
+#  Sepal.Length Sepal.Width Petal.Length Petal.Width      -> 3개의 군집의 중심점 좌표
+#1     5.175758    3.624242     1.472727   0.2727273
+#2     4.738095    2.904762     1.790476   0.3523810
+#3     6.314583    2.895833     4.973958   1.7031250
+#
+#Clustering vector:                                       -> 각 데이터에 데한 군집 번호
+#  [1] 1 2 2 2 1 1 1 1 2 2 1 1 2 2 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 2 2 1 1 1 2 1 1 1 2 1 1 2 2 1 1 2 1 2 1 1 3 3 3 3 3 3 3 2 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 3
+#[75] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#[149] 3 3
+#
+#Within cluster sum of squares by cluster:
+#  [1]   6.432121  17.669524 118.651875
+#(between_SS / total_SS =  79.0 %)
+#
+#Available components:
+#  
+#[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss" "betweenss"    "size"         "iter"         "ifault"     
+#
+
 fit$cluster     # 각 데이터에 대한 군집 번호
 fit$centers     # 각 군집의 중심점 좌표
 
 # 차원 축소 후 군집 시각화
 library( cluster )
 
+#       군집대상  군집번호     원색깔표시     원빗금표시   관측값출력   중심점연결선표시
 clusplot( mydata, fit$cluster, color = TRUE, shade = TRUE, labels = 2, lines = 0 )
+
 
 # 데이터에서 두 번째 군집의 데이터만 추출
 subset( mydata, fit$cluster == 2 )
@@ -103,6 +131,9 @@ fit
 # 1단계 : 그룹을 모르는 데이터 P에 대해 이미 그룹이 알려진 데이터 중 P와 가장 가까이에 있는 
 #         k개의 데이터를 수집한다.
 # 2단계 : k개의 데이터가 가장 많이 속해 있는 군집을 P의 군집으로 정한다.
+#
+# 다수결에 의해서 이웃의 점에 많은쪽 그룹으로 결정
+#
 library( class )
 
 # 훈련용 데이터와 테스트용 데이터 준비
